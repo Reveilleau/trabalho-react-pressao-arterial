@@ -11,15 +11,10 @@ class App extends React.Component {
         }
     }
 
-    onChangeSistolica(event) {
+    onChangeInput(event) {
+        const field = event.target.name
         this.setState({
-            sistolica: event.target.value
-        })
-    }
-
-    onChangeDiastolica(event) {
-        this.setState({
-            diastolica: event.target.value
+            [field]: event.target.value
         })
     }
 
@@ -44,18 +39,28 @@ class App extends React.Component {
         })
     }
 
+    showResult() {
+        if (this.state.result !== '') {
+            return <p>Seu diagnóstico é: {this.state.result}</p>
+        }
+
+        return null
+    }
+
     render() {
         return (
             <div>
                 <h1>Controle de Pressão Arterial</h1>
 
                 Pressão sistólica: <br />
-                <input type="number" onChange={(event) => this.onChangeSistolica(event)} />
+                <input type="number" name="sistolica" 
+                    onChange={(event) => this.onChangeInput(event)} />
 
                 <br /><br />
 
                 Pressão diastólica: <br />
-                <input type="number" onChange={(event) => this.onChangeDiastolica(event)} />
+                <input type="number" name="diastolica" 
+                    onChange={(event) => this.onChangeInput(event)} />
 
                 <br /><br />
 
@@ -64,7 +69,14 @@ class App extends React.Component {
 
                 <br /><br />
 
-                {this.state.result}
+                {/* { 
+                    this.state.result !== '' 
+                        ? <p>Seu diagnóstico é: {this.state.result}</p>
+                        : null
+                } */}
+                
+                { this.showResult() }
+
             </div>
         )
     }
