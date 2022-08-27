@@ -38,10 +38,25 @@ class App extends React.Component {
         } else {
             resultPressao = 'Hipertensão Grave'
         }
-
+        console.log(resultPressao)
         this.setState({
             result: resultPressao
         })
+    }
+
+    onChangeInput(event) {
+        const field = event.target.name
+        this.setState({
+            [field]: event.target.value
+        })
+    }
+
+    showResult() {
+        if (this.state.result !== '') {
+            return <p>Seu diagnóstico é: {this.state.result}</p>
+        }
+
+        return null
     }
 
     render() {
@@ -50,12 +65,12 @@ class App extends React.Component {
                 <h1>Controle de Pressão Arterial</h1>
 
                 Pressão sistólica: <br />
-                <input type="number" onChange={(event) => this.onChangeSistolica(event)} />
+                <input type="number" name="sistolica" onChange={(event) => this.onChangeInput(event)} />
 
                 <br /><br />
 
                 Pressão diastólica: <br />
-                <input type="number" onChange={(event) => this.onChangeDiastolica(event)} />
+                <input type="number" name="diastolica" onChange={(event) => this.onChangeInput(event)} />
 
                 <br /><br />
 
@@ -63,8 +78,9 @@ class App extends React.Component {
                     onClick={() => this.verificarPressao()} />
 
                 <br /><br />
+                
+                { this.showResult() }
 
-                {this.state.result}
             </div>
         )
     }
